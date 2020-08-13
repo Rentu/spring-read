@@ -391,7 +391,8 @@ class ConfigurationClassParser {
 	/**
 	 * Retrieve the metadata for all <code>@Bean</code> methods.
 	 */
-	private Set<MethodMetadata> retrieveBeanMethodMetadata(SourceClass sourceClass) {
+	private Set<MethodMetadata>
+	retrieveBeanMethodMetadata(SourceClass sourceClass) {
 		AnnotationMetadata original = sourceClass.getMetadata();
 		Set<MethodMetadata> beanMethods = original.getAnnotatedMethods(Bean.class.getName());
 		if (beanMethods.size() > 1 && original instanceof StandardAnnotationMetadata) {

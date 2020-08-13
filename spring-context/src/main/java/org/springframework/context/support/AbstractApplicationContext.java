@@ -507,7 +507,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	/**
 	 * Return the list of statically specified ApplicationListeners.
-	 * 返回静态指定的ApplicationListeners列表
+	 * 返回硬编码的ApplicationListeners列表
 	 */
 	public Collection<ApplicationListener<?>> getApplicationListeners() {
 		return this.applicationListeners;
@@ -515,23 +515,23 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
-		// 这里为啥加锁？
+		// 这里为啥加锁？ 应该是设计方面的考虑，方法是暴露的，如果有多个地方调用，保证线程安全。
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
 			// 准备容器刷新， 初始化了 this.earlyApplicationEvents this.applicationListeners
 			prepareRefresh();
 
-			// Tell the subclass to refresh the internal bean factory. 通知之类刷新内部 bean fac， 好像啥也没干
+			// Tell the subclass to refresh the internal bean factory. 好像啥也没干, 注释写的有点迷,先不管他
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
-			// Prepare the bean factory for use in this context. 初始化bean 工厂 并添加一些 bean 后置处理器
+			// Prepare the bean factory for use in this context. 初始化bean Fac, 添加一些后置处理器
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
 				postProcessBeanFactory(beanFactory);
 
-				// Invoke factory processors registered as beans in the context.
+				// Invoke factory processors registered as beans in the context. 把工厂处理器注册为Bean
 				// 扫描 @Component 等组件在这里干的
 				invokeBeanFactoryPostProcessors(beanFactory);
 
@@ -550,7 +550,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// Check for listener beans and register them. 注册监听器
 				registerListeners();
 
-				// Instantiate all remaining (non-lazy-init) singletons. 实例化所有剩余的（非延迟初始化）单例
+				// Instantiate all remaining (non-lazy-init) singletons. 实例化所有剩余的（非懒加载的）单例
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event. 最后一步 发布事件
@@ -637,6 +637,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	/**
 	 * Tell the subclass to refresh the internal bean factory.
+	 * 告诉子类刷新内部bean工厂
 	 * @return the fresh BeanFactory instance
 	 * @see #refreshBeanFactory()
 	 * @see #getBeanFactory()

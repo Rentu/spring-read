@@ -84,8 +84,11 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * {@link Configuration @Configuration} classes
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
+		// 初始化了Bean的扫描规则
 		this();
+		// 注册了Bean定义
 		register(componentClasses);
+		// 开始扫描Bean，注册监听者，发布事件等
 		refresh();
 	}
 
