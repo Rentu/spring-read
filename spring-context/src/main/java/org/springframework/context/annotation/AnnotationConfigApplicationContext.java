@@ -61,9 +61,12 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	/**
 	 * Create a new AnnotationConfigApplicationContext that needs to be populated
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
+	 * 给容器的两个属性赋值
 	 */
 	public AnnotationConfigApplicationContext() {
+		// 注解的bean定义读取器，注册自带的bf
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		// 类的bean定义读取器，注册了Bean的扫描规则，包含Component的
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -82,9 +85,10 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * from the given component classes and automatically refreshing the context.
 	 * @param componentClasses one or more component classes &mdash; for example,
 	 * {@link Configuration @Configuration} classes
+	 *  这里的   componentClasses 就是你代码里的写的那个配置类
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
-		// 初始化了Bean的扫描规则
+		// 初始化了Bean的扫描规则，扫描包含Component的|注册自带的Bf，基本就干了这两件事
 		this();
 		// 注册了Bean定义
 		register(componentClasses);
@@ -149,7 +153,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	//---------------------------------------------------------------------
 
 	/**
-	 * Register one or more component classes to be processed.
+	 * Register one or more component classes to be processed 待处理.
 	 * <p>Note that {@link #refresh()} must be called in order for the context
 	 * to fully process the new classes.
 	 * @param componentClasses one or more component classes &mdash; for example,

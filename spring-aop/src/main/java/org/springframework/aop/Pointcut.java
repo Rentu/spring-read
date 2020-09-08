@@ -33,12 +33,14 @@ package org.springframework.aop;
 public interface Pointcut {
 
 	/**
+	 * ClassFilter，在类级别进行过滤
 	 * Return the ClassFilter for this pointcut.
 	 * @return the ClassFilter (never {@code null})
 	 */
 	ClassFilter getClassFilter();
 
 	/**
+	 * 在方法级别进行过滤
 	 * Return the MethodMatcher for this pointcut.
 	 * @return the MethodMatcher (never {@code null})
 	 */

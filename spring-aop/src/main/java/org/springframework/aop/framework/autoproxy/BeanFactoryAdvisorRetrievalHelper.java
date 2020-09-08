@@ -60,7 +60,9 @@ public class BeanFactoryAdvisorRetrievalHelper {
 
 	/**
 	 * Find all eligible Advisor beans in the current bean factory,
+	 * 在当前的Bean fac 查找所有的合格Advisor bean
 	 * ignoring FactoryBeans and excluding beans that are currently in creation.
+	 * 忽略FactoryBeans并排除当前正在创建的bean
 	 * @return the list of {@link org.springframework.aop.Advisor} beans
 	 * @see #isEligibleBean
 	 */
