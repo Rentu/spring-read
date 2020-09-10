@@ -133,6 +133,7 @@ public class AnnotatedBeanDefinitionReader {
 	 * e.g. {@link Configuration @Configuration} classes
 	 */
 	public void register(Class<?>... componentClasses) {
+		// 如果只传入了一个配置类，忽略这个for循环吧
 		for (Class<?> componentClass : componentClasses) {
 			registerBean(componentClass);
 		}

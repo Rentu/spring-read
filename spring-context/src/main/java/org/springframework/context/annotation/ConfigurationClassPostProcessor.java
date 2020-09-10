@@ -215,7 +215,6 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
 	/**
 	 * Derive further bean definitions from the configuration classes in the registry.
-	 * 从注册表中的配置类派生其他Bean定义
 	 */
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
@@ -229,7 +228,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					"postProcessBeanFactory already called on this post-processor against " + registry);
 		}
 		this.registriesPostProcessed.add(registryId);
-
+		// 这里
 		processConfigBeanDefinitions(registry);
 	}
 
@@ -258,6 +257,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	/**
 	 * Build and validate a configuration model based on the registry of
 	 * {@link Configuration} classes.
+	 * 处理 Bean 定义
 	 */
 	public void processConfigBeanDefinitions(BeanDefinitionRegistry registry) {
 		List<BeanDefinitionHolder> configCandidates = new ArrayList<>();
@@ -271,11 +271,12 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					logger.debug("Bean definition has already been processed as a configuration class: " + beanDef);
 				}
 			}
+			// 将bf 封装
 			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}
 		}
-
+		// 检查有没有配置类，如果传入的参数里不包含@Configuration这个注解，第一次就返回了
 		// Return immediately if no @Configuration classes were found
 		if (configCandidates.isEmpty()) {
 			return;
@@ -314,6 +315,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		Set<ConfigurationClass> alreadyParsed = new HashSet<>(configCandidates.size());
 		do {
 			// 这个方法开始真正扫描解析 @Component 以及其派生注解
+			// 把bf 写到容器里 beanDefinitionMap 这个
 			parser.parse(candidates);
 			parser.validate();
 
@@ -327,7 +329,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
 						this.importBeanNameGenerator, parser.getImportRegistry());
 			}
-			//  这里
+			//  这里 加载Bf，把上面每个加载的Bean，再处理，注册方法Bean等
 			this.reader.loadBeanDefinitions(configClasses);
 			alreadyParsed.addAll(configClasses);
 

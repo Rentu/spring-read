@@ -4,7 +4,7 @@ import org.springframework.context.annotation.*;
 
 @Configuration("ConfigAlias")
 @ComponentScan(value = "org.springframework.mytest", excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = C3.class)})
-@Import({org.springframework.mytest.C3.class})
+//@Import({org.springframework.mytest.C3.class})
 public class Config {
 
 	public static void main(String[] args) {

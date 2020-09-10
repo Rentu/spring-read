@@ -415,7 +415,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		}
 		return candidates;
 	}
-	// 真正扫描组件的地方
+	// 真正扫描组件的地方，d-over
 	private Set<BeanDefinition> scanCandidateComponents(String basePackage) {
 		Set<BeanDefinition> candidates = new LinkedHashSet<>();
 		try {

@@ -501,7 +501,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	private String[] doGetBeanNamesForType(ResolvableType type, boolean includeNonSingletons, boolean allowEagerInit) {
 		List<String> result = new ArrayList<>();
 
-		// Check all bean definitions.
+		// Check all bean definitions. 这里每次都要把所有的bf循环一次，筛选出匹配的类型，就不能分类插入然后执行遍历嘛
 		for (String beanName : this.beanDefinitionNames) {
 			// Only consider bean as eligible if the bean name is not defined as alias for some other bean.
 			if (!isAlias(beanName)) {
@@ -908,7 +908,6 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 		// 所有的Bean 定义放到 beanDefinitionMap 里，beanDefinitionMap也属于容器的一部分
 		BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
-
 
 		if (existingDefinition != null) {
 			if (!isAllowBeanDefinitionOverriding()) {

@@ -85,12 +85,12 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * from the given component classes and automatically refreshing the context.
 	 * @param componentClasses one or more component classes &mdash; for example,
 	 * {@link Configuration @Configuration} classes
-	 *  这里的   componentClasses 就是你代码里的写的那个配置类
+	 *  这里的  componentClasses 就是你代码里的写的那个配置类 new AnnotationConfigApplicationContext(Config.class); 这里就是Config.class
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
 		// 初始化了Bean的扫描规则，扫描包含Component的|注册自带的Bf，基本就干了这两件事
 		this();
-		// 注册了Bean定义
+		// 把 componentClasses 的 bf 注册进去，上面这两步注册了6个bf，5个自带的，一个配置类
 		register(componentClasses);
 		// 开始扫描Bean，注册监听者，发布事件等
 		refresh();
