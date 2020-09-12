@@ -28,6 +28,7 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
 /**
+ * 说明这个类声明了一个活多个@Bean，在运行的时候可以被被spring容器处理生成bd和服务请求
  * Indicates that a class declares one or more {@link Bean @Bean} methods and
  * may be processed by the Spring container to generate bean definitions and
  * service requests for those beans at runtime, for example:

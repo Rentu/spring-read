@@ -301,7 +301,7 @@ class ConfigurationClassParser {
 				}
 			}
 		}
-
+		// 处理 import的
 		// Process any @Import annotations
 		processImports(configClass, sourceClass, getImports(sourceClass), true);
 
@@ -545,6 +545,13 @@ class ConfigurationClassParser {
 		}
 	}
 
+	/**
+	 * 也不写个注释 我c
+	 * @param configClass
+	 * @param currentSourceClass
+	 * @param importCandidates
+	 * @param checkForCircularImports
+	 */
 	private void processImports(ConfigurationClass configClass, SourceClass currentSourceClass,
 			Collection<SourceClass> importCandidates, boolean checkForCircularImports) {
 
@@ -587,8 +594,10 @@ class ConfigurationClassParser {
 					else {
 						// Candidate class not an ImportSelector or ImportBeanDefinitionRegistrar ->
 						// process it as an @Configuration class
+						// 走这里
 						this.importStack.registerImport(
 								currentSourceClass.getMetadata(), candidate.getMetadata().getClassName());
+						// 其实主要干的事也就是这个了，把他当配置类处理一波
 						processConfigurationClass(candidate.asConfigClass(configClass));
 					}
 				}

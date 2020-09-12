@@ -71,9 +71,9 @@ abstract class ConfigurationClassUtils {
 
 
 	/**
-	 * Check whether the given bean definition is a candidate for a configuration class 检查给过来的bf 是不是适合放在 配置类上
+	 * Check whether the given bean definition is a candidate for a configuration class 检查给过来的bf是否为候选的配置类
 	 * (or a nested component class declared within a configuration/component class,
-	 * to be auto-registered as well), and mark it accordingly.
+	 * to be auto-registered as well), and mark it accordingly 相应的.
 	 * @param beanDef the bean definition to check
 	 * @param metadataReaderFactory the current factory in use by the caller
 	 * @return whether the candidate qualifies as (any kind of) configuration class
@@ -188,6 +188,7 @@ abstract class ConfigurationClassUtils {
 
 	/**
 	 * Determine whether the given bean definition indicates a full {@code @Configuration}
+	 * *确定给定的b​​ean定义是否表示完整的{@code @Configuration}
 	 * class, through checking {@link #checkConfigurationClassCandidate}'s metadata marker.
 	 */
 	public static boolean isFullConfigurationClass(BeanDefinition beanDef) {
