@@ -64,9 +64,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * 给容器的两个属性赋值
 	 */
 	public AnnotationConfigApplicationContext() {
-		// 注解的bean定义读取器，注册自带的bf
+		// 注解的bean定义读取器，注册自带的bf，其实都是通过BeanFactoryPostProcessor实现的
 		this.reader = new AnnotatedBeanDefinitionReader(this);
-		// 类的bean定义读取器，注册了Bean的扫描规则，包含Component的
+		// 类的bean定义读取器，注册了Bean的扫描规则，包含Component的, 包含doScan方法
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -88,7 +88,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 *  这里的  componentClasses 就是你代码里的写的那个配置类 new AnnotationConfigApplicationContext(Config.class); 这里就是Config.class
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
-		// 初始化了Bean的扫描规则，扫描包含Component的|注册自带的Bf，基本就干了这两件事
+		// 初始化了Bean的扫描规则，扫描包含Component的|注册自带的Bf(一些BeanFactoryPostProcessor)
 		this();
 		// 把 componentClasses 的 bf 注册进去，上面这两步注册了6个bf，5个自带的，一个配置类
 		register(componentClasses);

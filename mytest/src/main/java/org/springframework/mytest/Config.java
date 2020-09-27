@@ -18,6 +18,7 @@ public class Config {
 
 //		c7proxy.invoke();
 		AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
+//		C11 c11 = (C11) annotationConfigApplicationContext.getBean("c11");
 //		annotationConfigApplicationContext.getBean("c5");
 //		annotationConfigApplicationContext.getBean("helloc3");
 //		c3.helloc3();
